@@ -1,9 +1,13 @@
 const CosmosClient = require("@azure/cosmos").CosmosClient;
 const config = require("./config/config");
 const express = require("express");
-const app = express();
-const TodoService = require("./todo/service");
+const bodyParser = require("body-parser");
+const TodoService = require("./todo/todoService");
 const TodoDao = require("./todo/todoDao");
+
+const app = express();
+
+app.use(bodyParser.json());
 
 // Init CosmosDB
 const cosmosClient = new CosmosClient({
@@ -28,6 +32,17 @@ todoDao
     );
     process.exit(1);
   });
+
+app.get("/todos", (req, res, next) =>
+  todoService.listTodos(req, res).catch(next)
+);
+
+app.post("/todos", (req, res, next) => {
+  todoService
+    .addTodo(req, res)
+    .then((data) => res.status(201).send(data))
+    .catch(next);
+});
 
 app.get("/ping", (req, res) => {
   return res.status(200).send("pong!");
