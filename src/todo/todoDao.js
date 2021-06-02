@@ -56,6 +56,19 @@ class TodoDao {
   async deleteTodoById(id) {
     await this.container.item(id).delete();
   }
+
+  async updateTodoById(id) {
+    await this.container.item(id).delete();
+  }
+
+  async updateTodoById(id, updatedTodo) {
+    const doc = await this.getTodoById(id);
+    doc.name = updatedTodo.name;
+    doc.description = updatedTodo.description;
+
+    const updatedDoc = await this.container.item(id).replace(doc);
+    return updatedDoc;
+  }
 }
 
 module.exports = TodoDao;

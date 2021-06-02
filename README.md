@@ -7,19 +7,21 @@ A todo app writing, and reading data from Azure Cosmos DB
 ## Installation
 
 ```bash
-npm i
+npm i # installs node dependencies
 ```
 
 ## Usage
 
 ```bash
-npm start
+npm start # app listens at local host port 3000
 ```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
