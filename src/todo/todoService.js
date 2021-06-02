@@ -28,6 +28,16 @@ class TaskList {
     }
   }
 
+  async deleteTodoById(req, res) {
+    const id = req.params.id;
+    try {
+      await this.todoDao.deleteTodoById(id);
+      return res.status(200).send();
+    } catch (error) {
+      return res.status(404).send(error.body.code);
+    }
+  }
+
   async addTodo(req, res) {
     const todo = req.body;
     const doc = await this.todoDao.addTodo(todo);

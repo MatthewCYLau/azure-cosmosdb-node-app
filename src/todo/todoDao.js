@@ -52,6 +52,10 @@ class TodoDao {
     const { resource } = await this.container.item(id).read();
     return resource;
   }
+
+  async deleteTodoById(id) {
+    await this.container.item(id).delete();
+  }
 }
 
 module.exports = TodoDao;

@@ -1,13 +1,17 @@
 const CosmosClient = require("@azure/cosmos").CosmosClient;
 const config = require("./config/config");
 const express = require("express");
-const bodyParser = require("body-parser");
 const TodoService = require("./todo/todoService");
 const TodoDao = require("./todo/todoDao");
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 // Init CosmosDB
 const cosmosClient = new CosmosClient({
@@ -39,6 +43,10 @@ app.get("/todos", (req, res, next) =>
 
 app.get("/todos/:id", (req, res, next) =>
   todoService.getTodoById(req, res).catch(next)
+);
+
+app.delete("/todos/:id", (req, res, next) =>
+  todoService.deleteTodoById(req, res).catch(next)
 );
 
 app.post("/todos", (req, res, next) => {
