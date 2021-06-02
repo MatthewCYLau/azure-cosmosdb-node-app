@@ -51,7 +51,7 @@ class TaskList {
       const doc = await this.todoDao.updateTodoById(id, updatedTodo);
       return res.status(200).send(doc.resource);
     } catch (error) {
-      return res.status(500).send(error);
+      return res.status(500).send();
     }
   }
 }
