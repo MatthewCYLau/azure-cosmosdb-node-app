@@ -1,8 +1,5 @@
-const CosmosClient = require("@azure/cosmos").CosmosClient;
-const config = require("./config/config");
 const express = require("express");
-const TodoService = require("./todo/todoService");
-const TodoDao = require("./todo/todoDao");
+const connectDB = require("../src/db/connectDB");
 
 const app = express();
 
@@ -13,29 +10,8 @@ app.use(
   })
 );
 
-// Init CosmosDB
-const cosmosClient = new CosmosClient({
-  endpoint: config.host,
-  key: config.authKey,
-});
-const todoDao = new TodoDao(
-  cosmosClient,
-  config.databaseId,
-  config.containerId
-);
-const todoService = new TodoService(todoDao);
-
-todoDao
-  .init((err) => {
-    console.error(err);
-  })
-  .catch((err) => {
-    console.error(err);
-    console.error(
-      "Shutting down because there was an error settinig up the database."
-    );
-    process.exit(1);
-  });
+// Instantiate todoService
+const todoService = connectDB();
 
 app.get("/todos", (req, res, next) =>
   todoService.listTodos(req, res).catch(next)
