@@ -19,7 +19,7 @@ az login # logins to Azure
 ```bash
 cd deploy # change to deploy directory
 terraform init # initialises Terraform
-terraform apply # deploys Azure stack
+terraform apply # deploys Azure stack. See output for Cosmos DB connection details
 terraform destroy # destroys Azure stack
 ```
 
