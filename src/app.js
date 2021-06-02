@@ -37,11 +37,12 @@ app.get("/todos", (req, res, next) =>
   todoService.listTodos(req, res).catch(next)
 );
 
+app.get("/todos/:id", (req, res, next) =>
+  todoService.getTodoById(req, res).catch(next)
+);
+
 app.post("/todos", (req, res, next) => {
-  todoService
-    .addTodo(req, res)
-    .then((data) => res.status(201).send(data))
-    .catch(next);
+  todoService.addTodo(req, res).catch(next);
 });
 
 app.get("/ping", (req, res) => {

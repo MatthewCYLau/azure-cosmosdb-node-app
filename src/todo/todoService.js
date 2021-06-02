@@ -18,11 +18,20 @@ class TaskList {
     return res.status(200).send(todos);
   }
 
+  async getTodoById(req, res) {
+    const id = req.params.id;
+    const todo = await this.todoDao.getTodoById(id);
+    if (todo) {
+      return res.status(200).send(todo);
+    } else {
+      return res.status(404).send();
+    }
+  }
+
   async addTodo(req, res) {
     const todo = req.body;
-    try {
-      return await this.todoDao.addTodo(todo);
-    } catch (error) {}
+    const doc = await this.todoDao.addTodo(todo);
+    return res.status(201).send(doc);
   }
 }
 

@@ -43,11 +43,14 @@ class TodoDao {
   }
 
   async addTodo(todo) {
-    todo.date = Date.now();
-    todo.completed = false;
-    const { resource: doc } = await this.container.items.create(todo);
-    console.log(doc);
-    return doc;
+    todo.date = new Date().toISOString();
+    const { resource } = await this.container.items.create(todo);
+    return resource;
+  }
+
+  async getTodoById(id) {
+    const { resource } = await this.container.item(id).read();
+    return resource;
   }
 }
 
