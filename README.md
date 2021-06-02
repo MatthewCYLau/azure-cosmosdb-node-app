@@ -1,4 +1,4 @@
-# Azure Azure Cosmos DB Node app
+# Azure Cosmos DB Node app
 
 A reference project to build, and deploy a Node app on Azure
 
